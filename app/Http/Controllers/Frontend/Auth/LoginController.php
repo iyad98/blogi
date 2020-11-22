@@ -1,0 +1,80 @@
+<?php
+
+namespace App\Http\Controllers\Frontend\Auth;
+
+use App\Http\Controllers\Controller;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+
+class LoginController extends Controller
+{
+    /*
+    |--------------------------------------------------------------------------
+    | Login Controller
+    |--------------------------------------------------------------------------
+    |
+    | This controller handles authenticating users for the application and
+    | redirecting them to your home screen. The controller uses a trait
+    | to conveniently provide its functionality to your applications.
+    |
+    */
+
+    use AuthenticatesUsers;
+
+    /**
+     * Where to redirect users after login.
+     *
+     * @var string
+     */
+    protected $redirectTo = '/';
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('guest')->except('logout');
+    }
+
+    public function showLoginForm()
+    {
+        return view('frontend.auth.login');
+    }
+    public function username()
+    {
+        return 'username';
+    }
+    protected function authenticated(Request $request, $user)
+    {
+        if ($user->status == 1){
+            return redirect()->route('frontend.dashboard')->with([
+                'message' => 'you are login successfully',
+                'alert_type' => 'success'
+            ]);
+        }
+        return redirect()->route('frontend.index')->with([
+            'message' => 'please contact blog admin',
+            'alert_type' => 'warning'
+        ]);
+    }
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        if ($response = $this->loggedOut($request)) {
+            return $response;
+        }
+
+        return $request->wantsJson()
+            ? new JsonResponse([], 204)
+            : redirect('/');
+    }
+}
