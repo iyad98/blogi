@@ -25,7 +25,7 @@ class PagesTableSeeder extends Seeder
             'comment_able' => 0,
             'post_type' => 'page' ,
             'user_id' => 1,
-            'category_id' => 1
+            'category_id' => 2
         ]);
         Page::create([
             'title' => 'Our Vision',
@@ -34,7 +34,7 @@ class PagesTableSeeder extends Seeder
             'comment_able' => 0,
             'post_type' => 'page' ,
             'user_id' => 1,
-            'category_id' => 1
+            'category_id' => 2
         ]);
     }
 }

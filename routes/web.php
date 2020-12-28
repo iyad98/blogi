@@ -48,13 +48,14 @@ Route::group(['middleware' => 'verified'] , function (){
 
 
 Route::group(['prefix' => 'admin'] , function (){
-    Route::get('/login',                                                ['as' => 'admin.show_login_form',                                            'uses' => 'Backend\Auth\LoginController@showLoginForm']);
-    Route::post('login',                                                ['as' => 'admin.login',                                                      'uses' => 'Backend\Auth\LoginController@login']);
-    Route::post('logout',                                               ['as' => 'admin.logout',                                                     'uses' => 'Backend\Auth\LoginController@logout']);
-    Route::get('password/reset',                                        ['as' => 'password.request',                                                 'uses' => 'Backend\Auth\ForgotPasswordController@showLinkRequestForm']);
-    Route::post('password/email',                                       ['as' => 'password.email',                                                   'uses' => 'Backend\Auth\ForgotPasswordController@sendResetLinkEmail']);
-    Route::get('password/reset/{token}',                                ['as' => 'password.reset',                                                   'uses' => 'Backend\Auth\ResetPasswordController@showResetForm']);
-    Route::post('password/reset',                                       ['as' => 'password.update',                                                  'uses' => 'Backend\Auth\ResetPasswordController@reset']);
+    Route::get('/login',                                                ['as' => 'admin.show_login_form',                                                  'uses' => 'Backend\Auth\LoginController@showLoginForm']);
+    Route::post('login',                                                ['as' => 'admin.login',                                                            'uses' => 'Backend\Auth\LoginController@login']);
+    Route::post('logout',                                               ['as' => 'admin.logout',                                                           'uses' => 'Backend\Auth\LoginController@logout']);
+    Route::get('password/reset',                                        ['as' => 'admin.password.request',                                                 'uses' => 'Backend\Auth\ForgotPasswordController@showLinkRequestForm']);
+    Route::post('password/email',                                       ['as' => 'admin.password.email',                                                   'uses' => 'Backend\Auth\ForgotPasswordController@sendResetLinkEmail']);
+    Route::get('password/reset/{token}',                                ['as' => 'admin.password.reset',                                                   'uses' => 'Backend\Auth\ResetPasswordController@showResetForm']);
+    Route::post('password/reset',                                       ['as' => 'admin.password.update',                                                  'uses' => 'Backend\Auth\ResetPasswordController@reset']);
+
 
     Route::group(['middleware' => ['roles' , 'role:admin|editor']],function (){
         Route::get('/' ,                                                ['as' => 'admin.index_route',                                                'uses' => 'Backend\AdminController@index']);
@@ -66,8 +67,17 @@ Route::group(['prefix' => 'admin'] , function (){
         Route::resource('post_categories' , 'Backend\PostCategoriesController' , ['as' => 'admin']);
         Route::resource('contact_us' , 'Backend\ContactUsController' , ['as' => 'admin']);
         Route::resource('users' , 'Backend\UsersController' , ['as' => 'admin']);
-        Route::resource('supervisor' , 'Backend\SupervisorsController' , ['as' => 'admin']);
+        Route::resource('supervisors' , 'Backend\SupervisorsController' , ['as' => 'admin']);
         Route::resource('settings' , 'Backend\SettingsController' , ['as' => 'admin']);
+
+
+        Route::post('/delete/post/media/{media_id}' , 'Backend\PostsController@remove_media')->name('admin.post.media.destroy');
+        Route::post('/delete/page/media/{media_id}' , 'Backend\PagesController@remove_media')->name('admin.pages.media.destroy');
+
+
+
+        Route::post('/users/removeImag' , 'Backend\UsersController@remove_image')->name('admin.users.remove_image');
+        Route::post('/users/removeImag' , 'Backend\SupervisorsController@remove_image')->name('admin.supervisors.remove_image');
 
 
     });

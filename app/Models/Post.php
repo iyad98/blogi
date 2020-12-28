@@ -46,4 +46,8 @@ class Post extends Model
     public function media(){
         return $this->hasMany(PostMedia::class , 'post_id' , 'id');
     }
+
+    public function status(){
+        return $this->status == 1 ? 'Active' : 'DisActive';
+    }
 }

@@ -8,6 +8,21 @@
     <!-- Topbar Navbar -->
     <ul class="navbar-nav ml-auto">
 
+        @if(auth()->user()->ability('admin', 'manage_supervisors,show_supervisors'))
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.supervisors.index') }}">
+                    Supervisors
+                </a>
+            </li>
+        @endif
+
+        @if(auth()->user()->ability('admin', 'manage_settings,show_supervisors'))
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.settings.index') }}">
+                    Settings
+                </a>
+            </li>
+        @endif
 
 
         <!-- Nav Item - Alerts -->
@@ -81,16 +96,13 @@
                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                     Profile
                 </a>
-
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="javascript:void(0)"  data-toggle="modal" data-target="#logoutModal">
                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                     Logout
                 </a>
-
             </div>
         </li>
-
     </ul>
 
 </nav>

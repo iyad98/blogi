@@ -113,6 +113,7 @@ class UserController extends Controller
             $user_id = auth()->user()->id;
             $post->update([
                 'title' => $request->title,
+                'slug' => null,
                 'description' => $request->description,
                 'status' => $request->status,
                 'comment_able' => $request->comment_able,
