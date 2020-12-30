@@ -76,8 +76,8 @@ Route::group(['prefix' => 'admin'] , function (){
 
 
 
-        Route::post('/users/removeImag' , 'Backend\UsersController@remove_image')->name('admin.users.remove_image');
-        Route::post('/users/removeImag' , 'Backend\SupervisorsController@remove_image')->name('admin.supervisors.remove_image');
+        Route::post('/users/removeUserImag' , 'Backend\UsersController@remove_image')->name('admin.users.remove_image');
+        Route::post('/users/removeSupervisorsImag' , 'Backend\SupervisorsController@remove_image')->name('admin.supervisors.remove_image');
 
 
     });

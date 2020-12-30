@@ -25,6 +25,7 @@ class IndexController extends Controller
             $q->whereStatus(1);
         })->wherePostType('post')->whereStatus(1)->orderBy('id' , 'desc')->paginate(5);
 
+
         return view('frontend.index' , compact('posts'));
     }
 

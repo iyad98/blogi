@@ -6,10 +6,12 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Mindscms\Entrust\Traits\EntrustUserWithPermissionsTrait;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable , EntrustUserWithPermissionsTrait ;
+    use HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
