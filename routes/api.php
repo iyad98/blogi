@@ -20,7 +20,8 @@ Route::post('login' , 'Api\LoginController@login');
 Route::post('register' , 'Api\RegistrationController@register');
 
 Route::middleware('auth:api')->group(function (){
-    Route::Resource('posts' , 'Api\PostController');
+    Route::apiResource('posts' , 'Api\PostController');
+    Route::apiResource('categories' , 'Api\CategoryController');
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
